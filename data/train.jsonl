@@ -1,0 +1,2 @@
+{"prompt":"Entity server-12 shows ops anomaly 0.82 and security anomaly 0.91","completion":"Risk HIGH. Likely attack. Isolate server and block IP."}
+{"prompt":"Only ops anomaly score 0.75 detected on server-5","completion":"Risk MEDIUM. Possible system overload. Monitor and scale resources."}
