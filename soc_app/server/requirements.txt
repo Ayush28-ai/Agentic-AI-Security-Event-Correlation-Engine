@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+gunicorn
+psutil
+requests
+pydantic
+python-dotenv
+numpy==1.26.4
+scikit-learn
+ddgs
+faiss-cpu
+langchain-core==0.1.52
+langchain-community==0.0.38
+langchain==0.1.16
+sentence-transformers==2.7.0
+torch==2.2.2+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu

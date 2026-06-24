@@ -1,0 +1,88 @@
+services:
+
+  soc-server:
+    build: ./server
+    container_name: soc-server
+    ports:
+      - "8000:8000"
+    volumes:
+      - shared-db:/app/shared
+      - ./server/data:/app/data
+    env_file: .env
+    environment:
+      - OPS_API_URL=http://ops-api:5001/detect
+      - SEC_API_URL=http://sec-api:5002/detect
+      - LLM_SERVICE_URL=http://host.docker.internal:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - ops-api
+      - sec-api
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  soc-mcp:
+    build: ./mcp
+    container_name: soc-mcp
+    ports:
+      - "8001:8001"
+    volumes:
+      - shared-db:/app/shared
+    env_file: .env
+    depends_on:
+      - soc-server
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  soc-dashboard:
+    build: ./dashboard
+    container_name: soc-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - shared-db:/app/shared
+    env_file: .env
+    environment:
+      - LLM_SERVICE_URL=http://host.docker.internal:8080
+    depends_on:
+      - soc-server
+    networks:
+      - soc-net
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  soc-agent:
+    build: ./agent
+    container_name: soc-agent
+    env_file: .env
+    networks:
+      - soc-net          # ✅ on soc-net so soc-server resolves by name
+    restart: unless-stopped
+
+  ops-api:
+    build: ./ops_api
+    container_name: ops-api
+    ports:
+      - "5001:5001"
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  sec-api:
+    build: ./sec_api
+    container_name: sec-api
+    ports:
+      - "5002:5002"
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+volumes:
+  shared-db:
+
+networks:
+  soc-net:
+    driver: bridge

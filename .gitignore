@@ -1,0 +1,70 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment Variables / Secrets
+.env
+*.env
+
+# Databases
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Build Artifacts
+build/
+dist/
+
+# PyInstaller
+*.spec
+
+# Model Files
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+*.onnx
+
+# LLM Folders
+soc_llm_flan_t5/
+soc_llm_phi3/
+
+# Vector DB / RAG
+soc_rag_db/
+*.faiss
+*.pkl
+
+# Node
+node_modules/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Linux Packages
+*.deb
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+.pytest_cache/
+.mypy_cache/
+
+# Temporary Files
+*.tmp
+*.temp
